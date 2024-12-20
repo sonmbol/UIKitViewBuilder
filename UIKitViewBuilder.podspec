@@ -1,6 +1,6 @@
 Pod::Spec.new do |c|
   c.name             = 'UIKitViewBuilder'
-  c.version          = '1.0.1'
+  c.version          = '1.0.2'
   c.summary          = "SwiftUI framework to integrate UIView, UITableViewCell, and UICollectionViewCell components."
   c.homepage         = 'https://github.com/sonmbol/UIKitViewBuilder'
   c.license          = 'MIT'
