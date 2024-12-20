@@ -14,16 +14,6 @@ To integrate `UIKitViewBuilder` into your project using Swift Package Manager, a
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sonmbol/UIKitViewBuilder.git", from: "1.0.1")
-]
-```
-
-### Swift Package Manager
-
-To integrate `UIKitViewBuilder` into your project using Swift Package Manager, add the following to your `Package.swift` file:
-
-```swift
-dependencies: [
     .package(url: "https://github.com/sonmbol/UIKitViewBuilder.git", from: "1.0.0")
 ]
 ```
