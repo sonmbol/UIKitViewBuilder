@@ -1,6 +1,6 @@
 Pod::Spec.new do |c|
   c.name             = 'UIKitViewBuilder'
-  c.version          = '1.0.2'
+  c.version          = '1.0.3'
   c.summary          = "SwiftUI framework to integrate UIView, UITableViewCell, and UICollectionViewCell components."
   c.description      = <<-DESC
 UIKitViewBuilder is a powerful Swift framework designed to convert any UIView, UITableViewCell,
