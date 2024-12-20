@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftUICore
+import SwiftUI
 
 @available(iOS 14.0, *)
 public protocol UIViewConfigurable: UIView, KeyPathReferenceWritable {
