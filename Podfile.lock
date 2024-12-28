@@ -1,0 +1,16 @@
+PODS:
+  - UIKitViewBuilder (1.1.0)
+
+DEPENDENCIES:
+  - UIKitViewBuilder
+
+SPEC REPOS:
+  trunk:
+    - UIKitViewBuilder
+
+SPEC CHECKSUMS:
+  UIKitViewBuilder: 2f6221f74b67a89a075c0413cb65aa0467c17907
+
+PODFILE CHECKSUM: ca02b1767bbad6f561a1463363d068f772861fb5
+
+COCOAPODS: 1.16.2

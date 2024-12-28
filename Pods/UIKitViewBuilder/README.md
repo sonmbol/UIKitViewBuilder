@@ -1,14 +1,12 @@
 # UIKitViewBuilder
 
-**UIKitViewBuilder** is a versatile Swift framework designed to seamlessly convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` into a `SwiftUI` view. This enables configuration and responsiveness to `Publisher`, making the integration of existing UI components into SwiftUI a breeze. Enhance your development experience with efficiency, excitement, and a touch of magic!
+**UIKitViewBuilder** is a powerful Swift framework designed to convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` into a `SwiftUI` view, making it configurable and responsive to `Publisher`. It simplifies the process of integrating your existing `UIView`, `UITableViewCell`, or `UICollectionViewCell` components into `SwiftUI`, enhancing your development journey with efficiency and excitement.
 
 ## Features
 
-- **Seamless Integration**: Effortlessly convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` to a `SwiftUI` view.
+- **Seamless Integration**: Convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` to a `SwiftUI` view.
 - **Configurable and Responsive**: Fully compatible with `SwiftUI` and responsive to `Publisher`.
-- **Result Builder**: Simplifies the implementation of `UIView`, `UITableViewCell`, or `UICollectionViewCell` as `SwiftUI` views using `UIKitViewBuilder`.
-
-## Installation
+- **Result Builder**: Simplifies the implementation of `UIView`, `UITableViewCell`, or `UICollectionViewCell` as `SwiftUI` view using `UIKitViewBuilder`.
 
 ### Swift Package Manager
 
@@ -23,7 +21,6 @@ dependencies: [
 
 #### CocoaPods
 
-
 To integrate `UIKitViewBuilder` using CocoaPods, add the following to your `Podfile`:
 
 ```ruby
@@ -32,35 +29,35 @@ platform :ios, '14.0'
 
 target 'YourAppTargetName' do
   use_frameworks!
-  pod 'UIKitViewBuilder'
+  pod 'UIKitViewBuilder', :path => '../Packages/UIKitViewBuilder'
 end
 ```
 
+
 ### Usage
 
-The core idea behind `UIKitViewBuilder` is to convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` into a `SwiftUI` view, making it configurable and responsive to `Publisher`. Below are some examples to get you started.
+
+The idea behind `UIKitViewBuilder` is to convert any `UIView`, `UITableViewCell`, or `UICollectionViewCell` into a `SwiftUI` view, making it configurable and responsive to `Publisher`. Here's a quick example to get you started:
 
 ### Example Usage
 
-#### Creating a View
+#### Make a View
 
 ```swift
-struct ContentView: View {
-    var body: some View {
-        List {
-            LabelView.makeView { view in
-                view.label.text = "make SwiftUI View"
-            }
-            LabelView()
-                .set(\.label.text, to: "make SwiftUI View")
-                .makeView()
-            buildEmptyLabelView()
-            buildLabelView()
-            buildTableViewCell()
-            buildCollectionViewCell()
-            buildTableViewCells()
-            buildCollectionViewCells()
+var body: some View {
+    List {
+        LabelView.makeView { view in
+            view.label.text = "make SwiftUI View"
         }
+        LabelView()
+            .set(\.label.text, to: "make SwiftUI View")
+            .makeView()
+        buildEmptyLabelView()
+        buildLabelView()
+        buildTableViewCell()
+        buildCollectionViewCell()
+        buildTableViewCells()
+        buildCollectionViewCells()
     }
 }
 
@@ -92,7 +89,9 @@ class LabelView: UIView {
 ```
 
 
+
 #### UIKitViewBuilder for Single Cells
+
 
 ```swift
 @UIKitViewBuilder
@@ -105,7 +104,7 @@ func buildLabelView() -> some View {
 @UIKitViewBuilder
 func buildEmptyLabelView() -> some View {
     LabelView()
-        .set(\.label.text, to: "Dynamic Content Here")
+        .set(\.label.text, to: "njdsnckjd ccdcddcd")
         .set(\.backgroundColor, to: .red)
 }
 
@@ -127,87 +126,44 @@ func buildCollectionViewCell() -> some View {
 
 #### UIKitViewBuilder for Multiple Cells
 
+
 ```swift
 @UIKitViewBuilder
 func buildLabelViews() -> some View {
     LabelView { cell in
-        cell.label.text = "First UIView"
+        cell.label.text = "first UIView"
     }
     LabelView { cell in
-        cell.label.text = "Second UIView"
+        cell.label.text = "second UIView"
     }
     LabelView { cell in
-        cell.label.text = "Third UIView"
+        cell.label.text = "third UIView"
     }
 }
 
 @UIKitViewBuilder
 func buildTableViewCells() -> some View {
     LabelTableViewCell { cell in
-        cell.label.text = "First TableViewCell"
+        cell.label.text = "first TableViewCell"
     }
     LabelTableViewCell { cell in
-        cell.label.text = "Second TableViewCell"
+        cell.label.text = "second TableViewCell"
     }
     LabelTableViewCell { cell in
-        cell.label.text = "Third TableViewCell"
+        cell.label.text = "third TableViewCell"
     }
 }
 
 @UIKitViewBuilder
 func buildCollectionViewCells() -> some View {
     LabelCollectionViewCell { cell in
-        cell.label.text = "First CollectionViewCell"
+        cell.label.text = "first CollectionViewCell"
     }
     LabelCollectionViewCell { cell in
-        cell.label.text = "Second CollectionViewCell"
+        cell.label.text = "second CollectionViewCell"
     }
     LabelCollectionViewCell { cell in
-        cell.label.text = "Third CollectionViewCell"
-    }
-}
-```
-
-
-#### UIKitViewBuilder for Multiple Cells
-
-```swift
-@UIKitViewBuilder
-func buildLabelViews() -> some View {
-    LabelView { cell in
-        cell.label.text = "First UIView"
-    }
-    LabelView { cell in
-        cell.label.text = "Second UIView"
-    }
-    LabelView { cell in
-        cell.label.text = "Third UIView"
-    }
-}
-
-@UIKitViewBuilder
-func buildTableViewCells() -> some View {
-    LabelTableViewCell { cell in
-        cell.label.text = "First TableViewCell"
-    }
-    LabelTableViewCell { cell in
-        cell.label.text = "Second TableViewCell"
-    }
-    LabelTableViewCell { cell in
-        cell.label.text = "Third TableViewCell"
-    }
-}
-
-@UIKitViewBuilder
-func buildCollectionViewCells() -> some View {
-    LabelCollectionViewCell { cell in
-        cell.label.text = "First CollectionViewCell"
-    }
-    LabelCollectionViewCell { cell in
-        cell.label.text = "Second CollectionViewCell"
-    }
-    LabelCollectionViewCell { cell in
-        cell.label.text = "Third CollectionViewCell"
+        cell.label.text = "third CollectionViewCell"
     }
 }
 ```
@@ -217,8 +173,9 @@ func buildCollectionViewCells() -> some View {
 
 
 - **Extraction**: The `UIView`, `UITableViewCell`, or `UICollectionViewCell` is first extracted as a `UIView`.
-- **Container**: A container is added around it to override `intrinsicContentSize` since `SwiftUI` respects the size only, not the constraints.
+- **Container**: A container is added around it to override `intrinsicContentSize` since `SwiftUI` respects the size only, not the constraint.
 - **Content Integration**: The cell content is added inside the container.
 - **Result Builder**: To make the view easy to use in `SwiftUI`, a result builder called `UIKitViewBuilder` is used.
 
 By following this approach, you can easily integrate your existing `UIView`, `UITableViewCell`, or `UICollectionViewCell` components into `SwiftUI`, making your development process smoother and more efficient.
+

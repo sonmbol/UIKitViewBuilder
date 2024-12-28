@@ -1,0 +1,6 @@
+framework module UIKitViewBuilder {
+  umbrella header "UIKitViewBuilder-umbrella.h"
+
+  export *
+  module * { export * }
+}
