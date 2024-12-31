@@ -8,10 +8,8 @@
 import UIKitViewBuilder
 import UIKit
 
-extension ViewProviderProtocol {
-    var bundle: Bundle? { .main }
-}
-class ItemTableViewCell: UITableViewCell, ViewProviderProtocol {
+
+class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var itemView: ItemView!
 
 }

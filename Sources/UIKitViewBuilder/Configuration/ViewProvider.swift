@@ -9,11 +9,11 @@ import Foundation
 
 @available(iOS 14.0, *)
 public protocol ViewProviderProtocol: AnyObject {
-    var identifier: String? { get }
-    var bundle: Bundle? { get }
-    init()
+    static var identifier: String? { get }
+    static var bundle: Bundle? { get }
 }
 
 public extension ViewProviderProtocol {
-    var identifier: String? { nil }
+    static var identifier: String? { nil }
+    static var bundle: Bundle? { Bundle(for: type(of: self as AnyObject)) }
 }

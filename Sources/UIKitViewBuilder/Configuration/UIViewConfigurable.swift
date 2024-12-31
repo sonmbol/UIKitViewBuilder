@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 @available(iOS 14.0, *)
-public protocol UIViewConfigurable: UIView, KeyPathReferenceWritable {
+public protocol UIViewConfigurable: UIView, KeyPathReferenceWritable, ViewProviderProtocol {
     init()
     static func createCell() -> Self
 }
@@ -33,14 +33,14 @@ public extension UIViewConfigurable {
 }
 
 extension UIViewConfigurable {
-    private static func isCellFromNib(provider: ViewProviderProtocol?) -> Bool {
-        let className = provider?.identifier ?? String(describing: Self.self)
-        return provider?.bundle?.path(forResource: className, ofType: "nib") != nil
+    private static func isCellFromNib() -> Bool {
+        let className = identifier ?? String(describing: Self.self)
+        return bundle?.path(forResource: className, ofType: "nib") != nil
     }
 
-    private static func loadFromNib(provider: ViewProviderProtocol?) -> Self {
-        let className = provider?.identifier ?? String(describing: Self.self)
-        let nib = UINib(nibName: className, bundle: provider?.bundle)
+    private static func loadFromNib() -> Self {
+        let className = identifier ?? String(describing: Self.self)
+        let nib = UINib(nibName: className, bundle: bundle)
         guard let cell = nib.instantiate(withOwner: nil, options: nil).first as? Self else {
             return Self()
         }
@@ -48,9 +48,8 @@ extension UIViewConfigurable {
     }
 
     public static func createCell() -> Self {
-        let providerType = Self.self as? ViewProviderProtocol.Type
-        if let provider = providerType?.init(), isCellFromNib(provider: provider) {
-            return loadFromNib(provider: provider)
+        if isCellFromNib() {
+            return loadFromNib()
         } else {
             return Self()
         }

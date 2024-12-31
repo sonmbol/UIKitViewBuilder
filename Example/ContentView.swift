@@ -6,11 +6,13 @@
 //
 
 import UIKitViewBuilder
+import UIKit
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
         List {
+            controlView()
             itemView()
             makeItemView()
             itemCellView()
@@ -18,7 +20,14 @@ struct ContentView: View {
         }
     }
 
-    
+    @UIKitViewBuilder
+    func controlView() -> some View {
+        UIActivityIndicatorView { view in
+            view.color = .red
+            view.startAnimating()
+        }
+    }
+
     @UIKitViewBuilder
     func itemView() -> some View {
         ItemView()
