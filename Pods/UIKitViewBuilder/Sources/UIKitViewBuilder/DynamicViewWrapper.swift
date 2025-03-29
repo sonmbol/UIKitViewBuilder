@@ -58,6 +58,13 @@ public extension DynamicViewWrapper {
     final class ContainerView: UIView {
         let contentView: ViewType
 
+        /// Allow SwiftUI to manage first responder status.
+        ///
+        /// In iOS 17, there is a system-level behavior where a `UITextField` (or similar input view)
+        /// must become first responder at least once to be correctly deallocated.
+        /// Returning `true` here ensures compatibility with SwiftUI's responder chain handling.
+        public override var canBecomeFirstResponder: Bool { true }
+
         init(contentView: ViewType) {
             self.contentView = contentView
             super.init(frame: .zero)
