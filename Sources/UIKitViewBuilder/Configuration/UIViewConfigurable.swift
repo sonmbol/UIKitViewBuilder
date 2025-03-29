@@ -10,8 +10,7 @@ import SwiftUI
 
 @available(iOS 14.0, *)
 public protocol UIViewConfigurable: UIView, KeyPathReferenceWritable, ViewProviderProtocol {
-    init()
-    static func createCell() -> Self
+    static func loadFromNib() -> Self
 }
 
 public extension UIViewConfigurable {
@@ -20,7 +19,7 @@ public extension UIViewConfigurable {
     }
 
     static func callAsFunction() -> Self {
-        Self.createCell()
+        Self.loadFromNib()
     }
 
     func makeView() -> some View {
@@ -38,7 +37,7 @@ extension UIViewConfigurable {
         return bundle?.path(forResource: className, ofType: "nib") != nil
     }
 
-    private static func loadFromNib() -> Self {
+    public static func loadFromNib() -> Self {
         let className = identifier ?? String(describing: Self.self)
         let nib = UINib(nibName: className, bundle: bundle)
         guard let cell = nib.instantiate(withOwner: nil, options: nil).first as? Self else {
@@ -47,13 +46,6 @@ extension UIViewConfigurable {
         return cell
     }
 
-    public static func createCell() -> Self {
-        if isCellFromNib() {
-            return loadFromNib()
-        } else {
-            return Self()
-        }
-    }
 }
 
 @available(iOS 14.0, *)

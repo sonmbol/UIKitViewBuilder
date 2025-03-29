@@ -14,32 +14,34 @@ public enum UIKitViewComponent<T: UIViewConfigurable> {
 }
 
 @available(iOS 14.0, *)
-public struct DynamicViewWrapper<CellType: UIViewConfigurable>: UIViewRepresentable {
-    public var component: UIKitViewComponent<CellType>
+public struct DynamicViewWrapper<ViewType: UIViewConfigurable>: UIViewRepresentable {
+    public var component: UIKitViewComponent<ViewType>
+    let shouldLoadFromNib: Bool
 
-    public init(component: UIKitViewComponent<CellType>) {
+    public init(component: UIKitViewComponent<ViewType>, shouldLoadFromNib: Bool = false) {
         self.component = component
+        self.shouldLoadFromNib = shouldLoadFromNib
     }
 
     public func makeUIView(context: Context) -> ContainerView {
-        let cell: CellType
+        let contentView: ViewType
         switch component {
             case .view(let preconfiguredView):
-            cell = preconfiguredView
+            contentView = preconfiguredView
             case .configuration(let configure):
-            cell = CellType.createCell()
-            configure(cell)
+            contentView = shouldLoadFromNib ? ViewType.loadFromNib() : ViewType()
+            configure(contentView)
         }
 
-        let containerView = ContainerView(cell: cell)
-        cell.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(cell)
+        let containerView = ContainerView(contentView: contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(contentView)
 
         NSLayoutConstraint.activate([
-            cell.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: cell.trailingAnchor),
-            cell.topAnchor.constraint(equalTo: containerView.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: cell.bottomAnchor)
+            contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
 
         return containerView
@@ -47,18 +49,17 @@ public struct DynamicViewWrapper<CellType: UIViewConfigurable>: UIViewRepresenta
 
     public func updateUIView(_ uiView: ContainerView, context: Context) {
         guard case .configuration(let configure) = component else { return }
-        let cell = uiView.cell
-        configure(cell)
+        configure(uiView.contentView)
     }
 }
 
 @available(iOS 14.0, *)
 public extension DynamicViewWrapper {
     final class ContainerView: UIView {
-        let cell: CellType
+        let contentView: ViewType
 
-        init(cell: CellType) {
-            self.cell = cell
+        init(contentView: ViewType) {
+            self.contentView = contentView
             super.init(frame: .zero)
         }
 
@@ -73,7 +74,7 @@ public extension DynamicViewWrapper {
 
         public override var intrinsicContentSize: CGSize {
             let targetSize = CGSize(width: bounds.width, height: UIView.layoutFittingCompressedSize.height)
-            let fittingSize = cell.systemLayoutSizeFitting(
+            let fittingSize = contentView.systemLayoutSizeFitting(
                 targetSize,
                 withHorizontalFittingPriority: .required,
                 verticalFittingPriority: .fittingSizeLevel

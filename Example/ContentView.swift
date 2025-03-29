@@ -46,7 +46,7 @@ struct ContentView: View {
             .makeView()
     }
 
-    @UIKitViewBuilder
+    @UIKitViewFromNibBuilder
     func itemCellView() -> some View {
         ItemTableViewCell.callAsFunction()
             .set(\.itemView.titleLabel.text, to: "Cheese burger")
@@ -55,7 +55,7 @@ struct ContentView: View {
             .set(\.itemView.itemImageView.image, to: UIImage(systemName: "globe"))
     }
 
-    @UIKitViewBuilder
+    @UIKitViewFromNibBuilder
     func makeItemCellView() -> some View {
         ItemTableViewCell { cell in
             cell.itemView.titleLabel.text = "Cheese burger"
